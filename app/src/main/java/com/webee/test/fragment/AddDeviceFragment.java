@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.webee.test.R;
+import com.webee.test.viewmodel.AddDeviceViewModel;
 
 public class AddDeviceFragment extends Fragment {
 

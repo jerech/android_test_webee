@@ -1,4 +1,4 @@
-package com.webee.test.fragment;
+package com.webee.test.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
