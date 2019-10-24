@@ -93,7 +93,7 @@ public class AddDeviceFragment extends Fragment implements DatePickerDialog.OnDa
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_YEAR, dayOfMonth);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         etDate.setText(AppUtils.formatDate(calendar.getTime(), "dd/MM/yyyy"));
 
     }
