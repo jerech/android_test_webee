@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.webee.test.R;
-import com.webee.test.databinding.AddDeviceFragmentBinding;
+import com.webee.test.databinding.FragmentAddDeviceBinding;
 import com.webee.test.dialog.DatePickerFragment;
 import com.webee.test.model.Device;
 import com.webee.test.util.AppUtils;
@@ -42,27 +42,20 @@ public class AddDeviceFragment extends Fragment implements DatePickerDialog.OnDa
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        AddDeviceFragmentBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.add_device_fragment, container, false);
+        FragmentAddDeviceBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_add_device, container, false);
         viewModel = ViewModelProviders.of(this).get(AddDeviceViewModel.class);
         binding.setModel(viewModel);
 
         View view = binding.getRoot();
 
         btnAddDevice = view.findViewById(R.id.btnAdd);
-        btnAddDevice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.insertDevice();
-            }
-        });
+        btnAddDevice.setOnClickListener(v -> {
+            viewModel.insertDevice();
+          }
+        );
         etDate = view.findViewById(R.id.etDate);
-        etDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
+        etDate.setOnClickListener(v -> showDatePickerDialog());
         return view;
     }
 
@@ -71,12 +64,10 @@ public class AddDeviceFragment extends Fragment implements DatePickerDialog.OnDa
 
         super.onActivityCreated(savedInstanceState);
 
-        viewModel.getDeviceMutableLiveData().observe(this, new Observer<Device>() {
-            @Override
-            public void onChanged(Device device) {
-                if(device != null) {
-                    getActivity().onBackPressed();
-                }
+        viewModel.getDeviceMutableLiveData().observe(this, device -> {
+            if(device != null) {
+                Toast.makeText(getContext(), "added device!", Toast.LENGTH_LONG).show();
+                getActivity().onBackPressed();
             }
         });
 

@@ -6,4 +6,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_device">Add Device</string>
     <string name="list_devices">List Devices</string>
+    <string name="weather">Weather</string>
+    <string name="url_api_weather">http://api.openweathermap.org/data/2.5/</string>
+    <string name="api_key_weather">c56b476c4fdcbaca99f692752e7786f3</string>
 </resources>

@@ -63,11 +63,8 @@ public class ListDevicesFragment extends Fragment implements DevicesAdapter.Item
         rvDevices.setLayoutManager(linearLayoutManager);
 
         viewModel = ViewModelProviders.of(this).get(AddDeviceViewModel.class);
-        viewModel.getAllDevices().observe(this, new Observer<List<Device>>() {
-            @Override
-            public void onChanged(List<Device> devices) {
-                adapter.setDevices(devices);
-            }
+        viewModel.getAllDevices().observe(this, devices -> {
+            adapter.setDevices(devices);
         });
 
         return view;
