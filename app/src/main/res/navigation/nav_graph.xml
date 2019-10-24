@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_mainFragment_to_addDeviceFragment"
             app:destination="@id/addDeviceFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_listDevicesFragment"
+            app:destination="@id/listDevicesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDeviceFragment"
         android:name="com.webee.test.fragment.AddDeviceFragment"
         android:label="add_device_fragment"
         tools:layout="@layout/add_device_fragment" />
+    <fragment
+        android:id="@+id/listDevicesFragment"
+        android:name="com.webee.test.fragment.ListDevicesFragment"
+        android:label="fragment_list_devices"
+        tools:layout="@layout/fragment_list_devices" />
 </navigation>

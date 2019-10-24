@@ -58,6 +58,14 @@ public class MainFragment extends Fragment {
             }
         });
 
+        Button btnListDevices = view.findViewById(R.id.btnListDevices);
+        btnListDevices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(R.id.listDevicesFragment);
+            }
+        });
+
         return view;
     }
 
