@@ -1,5 +1,7 @@
 package com.webee.test.util;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +16,9 @@ public class AppUtils {
     }
 
     public static Date parseDate(String strDate, String format) {
+        if(TextUtils.isEmpty(strDate)) {
+            return null;
+        }
         SimpleDateFormat sf = new SimpleDateFormat(format);
         Date date = null;
         try {
@@ -24,4 +29,5 @@ public class AppUtils {
         return date;
 
     }
+
 }

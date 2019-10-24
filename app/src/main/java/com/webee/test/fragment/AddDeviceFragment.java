@@ -1,7 +1,9 @@
 package com.webee.test.fragment;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,13 +13,23 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 import com.webee.test.R;
+import com.webee.test.databinding.AddDeviceFragmentBinding;
+import com.webee.test.dialog.DatePickerFragment;
+import com.webee.test.util.AppUtils;
 import com.webee.test.viewmodel.AddDeviceViewModel;
 
-public class AddDeviceFragment extends Fragment {
+import java.util.Calendar;
 
-    private AddDeviceViewModel mViewModel;
+public class AddDeviceFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+
+    private AddDeviceViewModel viewModel;
+    private Button btnAddDevice;
+    private EditText etDate;
 
     public static AddDeviceFragment newInstance() {
         return new AddDeviceFragment();
@@ -26,14 +38,51 @@ public class AddDeviceFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.add_device_fragment, container, false);
+
+        AddDeviceFragmentBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.add_device_fragment, container, false);
+        viewModel = ViewModelProviders.of(this).get(AddDeviceViewModel.class);
+        binding.setModel(viewModel);
+
+        View view = binding.getRoot();
+
+        btnAddDevice = view.findViewById(R.id.btnAdd);
+        btnAddDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.insertDevice();
+            }
+        });
+        etDate = view.findViewById(R.id.etDate);
+        etDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AddDeviceViewModel.class);
-        // TODO: Use the ViewModel
+
+
     }
 
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(this);
+        newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_YEAR, dayOfMonth);
+        etDate.setText(AppUtils.formatDate(calendar.getTime(), "dd/MM/yyyy"));
+
+    }
 }
