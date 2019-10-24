@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +86,8 @@ public class ListDevicesFragment extends Fragment implements DevicesAdapter.Item
 
     @Override
     public void onItemClick(Device item) {
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("device", item);
+        Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(R.id.deviceDetailFragment, bundle);
     }
 }

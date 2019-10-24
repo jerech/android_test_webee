@@ -26,5 +26,15 @@
         android:id="@+id/listDevicesFragment"
         android:name="com.webee.test.fragment.ListDevicesFragment"
         android:label="fragment_list_devices"
-        tools:layout="@layout/fragment_list_devices" />
+        tools:layout="@layout/fragment_list_devices" >
+        <action
+            android:id="@+id/action_listDevicesFragment_to_deviceDetailFragment"
+            app:destination="@id/deviceDetailFragment"  >
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/deviceDetailFragment"
+        android:name="com.webee.test.fragment.DeviceDetailFragment"
+        android:label="fragment_device_detail"
+        tools:layout="@layout/fragment_device_detail" />
 </navigation>

@@ -1,8 +1,9 @@
 package com.webee.test.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Device {
+public class Device implements Serializable {
 
     private int id;
 
