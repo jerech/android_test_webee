@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.webee.test.model.Device;
 import com.webee.test.repository.DeviceRepositoryImpl;
@@ -28,6 +29,8 @@ public class AddDeviceViewModel extends AndroidViewModel {
     public final ObservableField<String> errorMacAddress = new ObservableField<>();
     public final ObservableField<String> errorDate = new ObservableField<>();
 
+    private MutableLiveData<Device> deviceMutableLiveData = new MutableLiveData<>();
+
     private IDeviceRepository deviceRepository;
 
     public AddDeviceViewModel(@NonNull Application application) {
@@ -39,12 +42,18 @@ public class AddDeviceViewModel extends AndroidViewModel {
         if(!isValid()) {
             return;
         }
-        deviceRepository.insertDevice(new Device(0, macAddress.get(), name.get(), AppUtils.parseDate(date.get(), "dd/MM/yyyy")));
+        Device device = new Device(0, macAddress.get(), name.get(), AppUtils.parseDate(date.get(), "dd/MM/yyyy"));
+        deviceRepository.insertDevice(device);
+        deviceMutableLiveData.setValue(device);
     }
 
 
     public LiveData<List<Device>> getAllDevices() {
         return deviceRepository.getAllDevices();
+    }
+
+    public LiveData<Device> getDeviceMutableLiveData() {
+        return deviceMutableLiveData;
     }
 
     private boolean isValid() {

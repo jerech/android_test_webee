@@ -1,6 +1,7 @@
 package com.webee.test.fragment;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import com.webee.test.R;
 import com.webee.test.databinding.AddDeviceFragmentBinding;
 import com.webee.test.dialog.DatePickerFragment;
+import com.webee.test.model.Device;
 import com.webee.test.util.AppUtils;
 import com.webee.test.viewmodel.AddDeviceViewModel;
 
@@ -67,6 +70,15 @@ public class AddDeviceFragment extends Fragment implements DatePickerDialog.OnDa
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
+
+        viewModel.getDeviceMutableLiveData().observe(this, new Observer<Device>() {
+            @Override
+            public void onChanged(Device device) {
+                if(device != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
 
 
     }

@@ -54,7 +54,7 @@ public class MainFragment extends Fragment {
         btnAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_mainFragment_to_addDeviceFragment);
+                Navigation.findNavController(getActivity(), R.id.navHostFragment).navigate(R.id.addDeviceFragment);
             }
         });
 
