@@ -10,7 +10,7 @@ jobs:
       - checkout
 
       - run:
-          name: Run tests
+          name: Corriendo tests
           command: ./gradlew lintDebug testDebugUnitTest
 
       - store_artifacts:
